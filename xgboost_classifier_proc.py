@@ -37,7 +37,7 @@ print('<meta charset="utf-8">')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('condition', type=str, help='fit pred')
+    parser.add_argument('condition', type=str, help='fit pred result')
     subparsers = parser.add_subparsers(help='sub-command help', dest='fun')
 
     # 'training' 명령을 위한 파서를 만든다.
@@ -91,6 +91,8 @@ if __name__ == '__main__':
         xgb.fit(
             X_samp, y_samp,
             eval_metric='mae', eval_set=[(X_samp, y_samp)])
+        print(dir(xgb))
+        print(xgb.evals_result())
         xgb.save_model(model_path)
 
     elif args.condition == 'predict':
